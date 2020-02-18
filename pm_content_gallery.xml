@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.5" type="plugin" group="content" method="upgrade">
+    <name>plg_content_pm_content_gallery</name>
+    <author>Ponto Mega</author>
+    <creationDate>2020-2-18</creationDate>
+    <copyright>Created by Ponto Mega with generator-joomla3 by @diarcastro</copyright>
+    <license>GNU/Public</license>
+    <authorEmail>contato@pontomega.com.br</authorEmail>
+    <authorUrl>pontomega.com.br</authorUrl>
+    <version>1.0.0</version>
+    <description>PLG_CONTENT_PM_CONTENT_GALLERY_XML_DESCRIPTION</description>
+    <files>
+        <filename plugin="pm_content_gallery">pm_content_gallery.php</filename>
+        <folder>fields</folder>
+        <folder>language</folder>
+		   <folder>assets</folder>
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/en-GB.plg_content_pm_content_gallery.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.plg_content_pm_content_gallery.sys.ini</language>
+        <language tag="pt-BR">language/pt-BR/pt-BR.plg_content_pm_content_gallery.ini</language>
+        <language tag="pt-BR">language/pt-BR/pt-BR.plg_content_pm_content_gallery.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="galleryconfig">
+			<field name="height" label="HEIGHT_VW_PX" type="text" default="30vw" description="PUT_HEIGHT_VW_OR_PX" /> 
+                <field name="loop" label="LOOP" type="radio" default="1" class="btn-group">                   
+                    <option value="1">JYES</option>
+					 <option value="0">JNO</option>
+                </field>
+				  <field name="autoplay" label="AUTOPLAY" type="radio" default="1" class="btn-group">                   
+                    <option value="1">JYES</option>
+					 <option value="0">JNO</option>
+                </field>
+				  <field name="nav" label="NAV" type="radio" default="1" class="btn-group">                   
+                    <option value="1">JYES</option>
+					 <option value="0">JNO</option>
+                </field>
+				<field name="dots" label="DOTS" type="radio" default="1" class="btn-group">                   
+                    <option value="1">JYES</option>
+					 <option value="0">JNO</option>
+                </field>
+				<field name="lazyload" label="LAZYLOAD" type="radio" default="1" class="btn-group">                   
+                    <option value="1">JYES</option>
+					 <option value="0">JNO</option>
+                </field>
+				<field name="dotseach" label="DOTSEACH" type="text" default="1" />               
+                 <field name="dotseach" label="DOTSEACH" type="text" default="1" />   
+				
+            </fieldset>
+            <fieldset name="basic">
+                <field
+						name="folder"
+						type="text"
+						directory="images"
+						label="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_FOLDER_LABEL"
+						description="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_FOLDER_DESC" />
+                <field
+						name="images_per_row"
+						type="text"
+						label="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_IMAGES_PER_ROW_LABEL"
+						description="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_IMAGES_PER_ROW_DESC" />
+            </fieldset>
+        </fields>
+    </config>
+</extension>

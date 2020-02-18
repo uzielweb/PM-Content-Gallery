@@ -1,0 +1,41 @@
+.owl-theme .owl-nav {
+    margin-top: 0;
+}
+
+.owl-theme .owl-nav [class*="owl-"] {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+
+.owl-carousel .owl-nav button.owl-next,
+.owl-carousel .owl-nav button.owl-prev,
+.owl-carousel button.owl-dot {
+    background: 0 0;
+    color: inherit;
+    border: none;
+    padding: 0 !important;
+    font: inherit;
+    color: #fff;
+    font-size: 64px;
+    z-index: 2;
+    line-height: 1em;
+}
+
+.owl-theme .owl-nav [class*="owl-"]:hover {
+    background: transparent;
+    color: #FFF;
+    text-decoration: none;
+}
+
+.owl-theme .owl-nav .owl-prev {
+    left: 0px
+}
+
+.owl-theme .owl-nav .owl-next {
+    right: 0px
+}
