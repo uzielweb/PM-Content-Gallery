@@ -53,7 +53,7 @@
                 <field
 						name="folder"
 						type="text"
-						directory="images"
+						folder="images"
 						label="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_FOLDER_LABEL"
 						description="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_FOLDER_DESC" />
                 <field
