@@ -105,7 +105,7 @@ JHtml::_('script',JUri::root().'plugins/content/pm_content_gallery/assets/js/owl
 		// usaremos o id do artigo para atribuir corretamente o slide
 		$html .= '<div class="owl-carousel carrossel'.$article->id.' owl-theme">';
 		//pega as imagens do diretório
-		$directory = $this->params->get('folder').'/'.$pasta;
+		$directory = $this->params->get('folder', 'images').'/'.$pasta;
 
 
 		$files = preg_grep('~\.(jpeg|jpg|png|gif|JPEG|JPG|PNG|GIF)$~', scandir($directory));
