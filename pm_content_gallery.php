@@ -89,7 +89,7 @@ class PlgContentPm_content_gallery extends JPlugin{
 JHtml::_('script',JUri::root().'plugins/content/pm_content_gallery/assets/js/owl.carousel.min.js', false, true, false, false);
 
 		//pesquisa no conteúdo
-		preg_match_all('@{pmgallery}(.*){/pmgallery}@Us', $article->text, $matches);
+		preg_match_all('@{'.$this->params->get("customtagname", "pmgallery").'}(.*){/'.$this->params->get("customtagname", "pmgallery").'}@Us', $article->text, $matches);
 		// var_dump($matches[1]);
 		//armazena os dados obtidos do conteúdo
 	
@@ -144,7 +144,7 @@ JHtml::_('script',JUri::root().'plugins/content/pm_content_gallery/assets/js/owl
 		});
 		</script>';
 		//troca o texto pelo novo html desejado
-		$article->text = preg_replace('@{pmgallery}(.*){/pmgallery}@Us', $html, $article->text);
+		$article->text = preg_replace('@{'.$this->params->get("customtagname", "pmgallery").'}(.*){/'.$this->params->get("customtagname", "pmgallery").'}@Us', $html, $article->text);
 		
 	}
 	public function onContentAfterDisplay($context, &$article, &$params, $page = 0){
