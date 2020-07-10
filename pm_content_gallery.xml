@@ -24,6 +24,8 @@
     <config>
         <fields name="params">
             <fieldset name="galleryconfig">
+		
+		    <field name="customtagname" label="Tag" type="text" default="pmgallery" description="Tag" /> 
 			<field name="height" label="HEIGHT_VW_PX" type="text" default="30vw" description="PUT_HEIGHT_VW_OR_PX" /> 
                 <field name="loop" label="LOOP" type="radio" default="1" class="btn-group">                   
                     <option value="1">JYES</option>
