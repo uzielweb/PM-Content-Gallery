@@ -7,7 +7,7 @@
     <license>GNU/Public</license>
     <authorEmail>contato@pontomega.com.br</authorEmail>
     <authorUrl>pontomega.com.br</authorUrl>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <description>PLG_CONTENT_PM_CONTENT_GALLERY_XML_DESCRIPTION</description>
     <files>
         <filename plugin="pm_content_gallery">pm_content_gallery.php</filename>
