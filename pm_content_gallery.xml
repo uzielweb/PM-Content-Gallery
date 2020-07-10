@@ -23,7 +23,7 @@
     </languages>
     <config>
         <fields name="params">
-            <fieldset name="galleryconfig">
+            <fieldset name="GALLERY_CONFIG">
 		
 		    
 			<field name="height" label="HEIGHT_VW_PX" type="text" default="30vw" description="PUT_HEIGHT_VW_OR_PX" /> 
@@ -57,11 +57,13 @@
 						name="folder"
 						type="text"
 						folder="images"
+		       	default="images"
 						label="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_FOLDER_LABEL"
 						description="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_FOLDER_DESC" />
                 <field
 						name="images_per_row"
 						type="text"
+		       default="1"
 						label="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_IMAGES_PER_ROW_LABEL"
 						description="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_IMAGES_PER_ROW_DESC" />
             </fieldset>
