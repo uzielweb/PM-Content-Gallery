@@ -7,7 +7,7 @@
     <license>GNU/Public</license>
     <authorEmail>contato@pontomega.com.br</authorEmail>
     <authorUrl>pontomega.com.br</authorUrl>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <description>PLG_CONTENT_PM_CONTENT_GALLERY_XML_DESCRIPTION</description>
     <files>
         <filename plugin="pm_content_gallery">pm_content_gallery.php</filename>
@@ -25,9 +25,10 @@
         <fields name="params">
             <fieldset name="GALLERY_CONFIG">
                 <field name="height" label="HEIGHT" type="list" default="16by9" description="HEIGHT_DESC">
-                    <option value="16by9">16by9</option>
-                    <option value="4by3">4by3</option>
-                    <option value="1by1">1by1</option>
+                    <option value="21by9">ULTRAWIDESCREEN</option>
+                    <option value="16by9">WIDESCREEN</option>
+                    <option value="4by3">RETANGULAR</option>
+                    <option value="1by1">SQUARE</option>
                 </field>
 
                 <field name="loop" label="LOOP" type="radio" default="1" class="btn-group">
