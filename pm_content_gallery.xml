@@ -24,7 +24,12 @@
     <config>
         <fields name="params">
             <fieldset name="GALLERY_CONFIG">
-                <field name="height" label="HEIGHT_VW_PX" type="text" default="30vw" description="HEIGHT_VW_PX_DESC" />
+                <field name="height" label="HEIGHT" type="list" default="16by9" description="HEIGHT_DESC">
+                    <option value="16by9">16by9</option>
+                    <option value="4by3">4by3</option>
+                    <option value="1by1">1by1</option>
+                </field>
+
                 <field name="loop" label="LOOP" type="radio" default="1" class="btn-group">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
