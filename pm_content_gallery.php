@@ -68,11 +68,11 @@ class PlgContentPm_content_gallery extends JPlugin
      */
     // private function createHtmlOutput()
     // {
-    //     $html = '';
+    //     $html[$m] = '';
     //     if (!file_exists($this->absolutePath . $this->rootFolder . $this->imagesDir . '/index.html')) {
     //         file_put_contents($this->absolutePath . $this->rootFolder . $this->imagesDir . '/index.html', '');
     //     }
-    //     $html = 'Hello World!';
+    //     $html[$m] = 'Hello World!';
     // }
     public function onContentPrepare($context, &$article, &$params, $limitstart)
     {
@@ -90,40 +90,61 @@ class PlgContentPm_content_gallery extends JPlugin
 
         //pesquisa no conteúdo
         preg_match_all('@{' . $this->params->get("customtagname", "pmgallery") . '}(.*){/' . $this->params->get("customtagname", "pmgallery") . '}@Us', $article->text, $matches);
-        // var_dump($matches[1]);
+        $allMatches = $matches[0];
+          // prepagara o html (inicia vazio)
+       
+        $html[] = "";
+        foreach ($allMatches as $m=>$match) {
+            preg_match_all('@{' . $this->params->get("customtagname", "pmgallery") . '}(.*){/' . $this->params->get("customtagname", "pmgallery") . '}@Us', $match, $newmatches);
+            $newMatchesContent[$m] = $newmatches[1][0];
+           
+       
         //armazena os dados obtidos do conteúdo
 
-        $conteudo = explode('|', $matches[1][0]);
-        $pasta = $conteudo[0];
-        $descricao = $conteudo[1];
-        // var_dump($descricao);
-        // prepagara o html (inicia vazio)
-        $html = "";
+        $contentArray = explode("|", isset($newMatchesContent[$m]) ? $newMatchesContent[$m] : '');
+     
+     
+        $pasta = isset($contentArray[0]) ? $contentArray[0] : '';
+        $descricao = isset($contentArray[1]) ? $contentArray[1] : '';
+       
+
+      
+      
+        
         //envelopa todo o conteúdo para melhor formatação no css depois
-        $html .= '<div class="pmgcontentgallery gallery-' . $article->id . '">';
+        $html[$m] = '';
+        $html[$m] .= '<div class="pmcontentgallery gallery-'.$article->id.$m.'">';
         // usaremos o id do artigo para atribuir corretamente o slide
-        $html .= '<div class="owl-carousel carrossel' . $article->id . ' owl-theme">';
+        $html[$m] .= '<div class="owl-carousel carrossel-'.$article->id.$m.' owl-theme">';
         //pega as imagens do diretório
         $directory = $this->params->get('folder', 'images') . '/' . $pasta;
 
         $files = preg_grep('~\.(jpeg|jpg|png|gif|JPEG|JPG|PNG|GIF)$~', scandir($directory));
 
-        foreach ($files as $file) {
+        foreach ($files as $k=>$file) {
             $imagem = JUri::base() . $directory . '/' . $file;
+
             $heightb4 = $this->params->get("height", "16by9");
             $heightb5 = str_replace("by", "x", $heightb4);
-
-            $html .= '<div class="item" class="embed-responsive embed-responsive-' . $heightb4 . ' ratio ratio-' . $heightb5 . '">';
-            $html .= '<img src="' . $imagem . '" alt="' . $descricao . '" class="w-100 img-responsive">';
-            $html .= '</div>';
+            //  get image name without extension
+            $imageName = pathinfo($file, PATHINFO_FILENAME);
+            $imageName = str_replace("-", " ", $imageName);           
+            $imageName = str_replace("_", " ", $imageName);
+            $imageName = ucwords($imageName);
+            $alt = $descricao ? $descricao . ' - ' . $k : $imageName;
+            $html[$m] .= '<div class="item">';
+            $html[$m] .= '<div  class="embed-responsive embed-responsive-' . $heightb4 . ' ratio ratio-' . $heightb5 . '">';
+            $html[$m] .= '<img src="' . $imagem . '" alt="' . $alt  . '" class="w-100 img-responsive">';
+            $html[$m] .= '</div>';
+            $html[$m] .= '</div>';
 
         }
-        $html .= '</div>';
-        $html .= '<div class="descrição">' . $descricao . '</div>';
-        $html .= '</div>';
-        $html .= '<script>
+        $html[$m] .= '</div>';
+        $html[$m] .= '<div class="descrição">' . $descricao . '</div>';
+        $html[$m] .= '</div>';
+        $html[$m] .= '<script>
 		jQuery(document).ready(function($){
-			$(".carrossel' . $article->id . '").owlCarousel({
+			$(".carrossel-'.$article->id.$m.'").owlCarousel({
 				loop:' . $this->params->get("loop", "true") . ',
 				autoplay: ' . $this->params->get("autoplay", "true") . ',
 				margin:' . $this->params->get("margin", "10") . ',
@@ -146,10 +167,13 @@ class PlgContentPm_content_gallery extends JPlugin
 			})
 		});
 		</script>';
-        //troca o texto pelo novo html desejado
-        $article->text = preg_replace('@{' . $this->params->get("customtagname", "pmgallery") . '}(.*){/' . $this->params->get("customtagname", "pmgallery") . '}@Us', $html, $article->text);
+       // change each match to the new html
+       $article->text = preg_replace('@{' . $this->params->get("customtagname", "pmgallery") . '}(.*){/' . $this->params->get("customtagname", "pmgallery") . '}@Us', $html[$m], $article->text, 1);
+        }
+         
 
     }
+       
     public function onContentAfterDisplay($context, &$article, &$params, $page = 0)
     {
         // return true;
