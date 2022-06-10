@@ -86,7 +86,8 @@ class PlgContentPm_content_gallery extends JPlugin
         //Atribui o Jquery do Joomla
         JHtml::_('jquery.framework', true, true);
         //Carrega o script após o Jquery do Joomla
-        JHtml::_('script', JUri::root() . 'plugins/content/pm_content_gallery/assets/js/owl.carousel.min.js', false, true, false, false);
+        // JHtml::_('script', JUri::root() . 'plugins/content/pm_content_gallery/assets/js/owl.carousel.min.js', false, true, false, false);
+	     $doc->addScript(JUri::root() . 'plugins/content/pm_content_gallery/assets/js/owl.carousel.min.js');
 
         //pesquisa no conteúdo
         preg_match_all('@{' . $this->params->get("customtagname", "pmgallery") . '}(.*){/' . $this->params->get("customtagname", "pmgallery") . '}@Us', $article->text, $matches);
