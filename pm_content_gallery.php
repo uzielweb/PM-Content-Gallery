@@ -114,13 +114,17 @@ class PlgContentPm_content_gallery extends JPlugin
         
         //envelopa todo o conteúdo para melhor formatação no css depois
         $html[$m] = '';
-        $html[$m] .= '<div class="pmcontentgallery gallery-'.$article->id.$m.'">';
+        $html[$m] .= '<section class="pmcontentgallery gallery-'.$article->id.$m.'">';
         // usaremos o id do artigo para atribuir corretamente o slide
         $html[$m] .= '<div class="owl-carousel carrossel-'.$article->id.$m.' owl-theme">';
         //pega as imagens do diretório
         $directory = $this->params->get('folder', 'images') . '/' . $pasta;
-
+        if (is_dir($directory)) {
         $files = preg_grep('~\.(jpeg|jpg|png|gif|JPEG|JPG|PNG|GIF)$~', scandir($directory));
+        }
+        else {
+            echo "The directory doesn't exist: $directory";
+        }
 
         foreach ($files as $k=>$file) {
             $imagem = JUri::base() . $directory . '/' . $file;
@@ -135,14 +139,14 @@ class PlgContentPm_content_gallery extends JPlugin
             $alt = $descricao ? $descricao . ' - ' . $k : $imageName;
             $html[$m] .= '<div class="item">';
             $html[$m] .= '<div  class="embed-responsive embed-responsive-' . $heightb4 . ' ratio ratio-' . $heightb5 . '">';
-            $html[$m] .= '<img src="' . $imagem . '" alt="' . $alt  . '" class="w-100 img-responsive">';
+            $html[$m] .= '<img class="embed-responsive-item w-100 h-auto" src="' . $imagem . '" alt="' . $alt . '">';
             $html[$m] .= '</div>';
             $html[$m] .= '</div>';
 
         }
         $html[$m] .= '</div>';
         $html[$m] .= '<div class="descrição">' . $descricao . '</div>';
-        $html[$m] .= '</div>';
+        $html[$m] .= '</section>';
         $html[$m] .= '<script>
 		jQuery(document).ready(function($){
 			$(".carrossel-'.$article->id.$m.'").owlCarousel({
