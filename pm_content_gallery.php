@@ -8,7 +8,7 @@
  */
 
 defined('_JEXEC') or die;
-
+use Joomla\CMS\Factory;
 /**
  * Pm_content_gallery plugin class.
  *
@@ -77,7 +77,7 @@ class PlgContentPm_content_gallery extends JPlugin
     public function onContentPrepare($context, &$article, &$params, $limitstart)
     {
 
-        $doc = JFactory::getDocument();
+        $doc = Factory::getDocument();
 
         $doc->addStyleSheet(JUri::root() . 'plugins/content/pm_content_gallery/assets/css/owl.theme.default.min.css');
         $doc->addStyleSheet(JUri::root() . 'plugins/content/pm_content_gallery/assets/css/owl.carousel.min.css');
