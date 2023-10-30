@@ -9,6 +9,12 @@
 
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
+//  web asset manager
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Plugin\CMSPlugin;
+
 /**
  * Pm_content_gallery plugin class.
  *
@@ -76,18 +82,32 @@ class PlgContentPm_content_gallery extends JPlugin
     // }
     public function onContentPrepare($context, &$article, &$params, $limitstart)
     {
+        // check joomla version if is 3.9 or higher
+        if (version_compare(JVERSION, '4.0', '>=')) {
+            // Joomla! 4.0 code here
+          /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
+$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 
-        $doc = Factory::getDocument();
 
-        $doc->addStyleSheet(JUri::root() . 'plugins/content/pm_content_gallery/assets/css/owl.theme.default.min.css');
-        $doc->addStyleSheet(JUri::root() . 'plugins/content/pm_content_gallery/assets/css/owl.carousel.min.css');
-        $doc->addStyleSheet(JUri::root() . 'plugins/content/pm_content_gallery/assets/css/temabasico.css');
+        
+            $wa->registerAndUseStyle('pm_content_gallery_default', Uri::root() . 'plugins/content/pm_content_gallery/assets/css/owl.theme.default.min.css', ['version' => 'auto', 'relative' => true]);
+            $wa->registerAndUseStyle('pm_content_gallery_carousel', Uri::root() . 'plugins/content/pm_content_gallery/assets/css/owl.carousel.min.css', ['version' => 'auto', 'relative' => true]);
+            $wa->registerAndUseStyle('pm_content_gallery_temabasico', Uri::root() . 'plugins/content/pm_content_gallery/assets/css/temabasico.css', ['version' => 'auto', 'relative' => true]);
+//    load after all scripts
+            $wa->registerAndUseScript('pm_content_gallery_js', Uri::root() . 'plugins/content/pm_content_gallery/assets/js/owl.carousel.min.js', ['version' => 'auto', 'relative' => true], ['defer' => true]);
+           
+        } else {
+            // Joomla! 3.x code here
+            $doc = Factory::getDocument();
+            $doc->addStyleSheet(Uri::root() . 'plugins/content/pm_content_gallery/assets/css/owl.theme.default.min.css');
+            $doc->addStyleSheet(Uri::root() . 'plugins/content/pm_content_gallery/assets/css/owl.carousel.min.css');
+            $doc->addStyleSheet(Uri::root() . 'plugins/content/pm_content_gallery/assets/css/temabasico.css');
+            JHtml::_('jquery.framework', true, true);
+            $doc->addScript(Uri::root() . 'plugins/content/pm_content_gallery/assets/js/owl.carousel.min.js');
+        }
+        
 
-        //Atribui o Jquery do Joomla
-        JHtml::_('jquery.framework', true, true);
-        //Carrega o script após o Jquery do Joomla
-        // JHtml::_('script', JUri::root() . 'plugins/content/pm_content_gallery/assets/js/owl.carousel.min.js', false, true, false, false);
-	     $doc->addScript(JUri::root() . 'plugins/content/pm_content_gallery/assets/js/owl.carousel.min.js');
+      
 
         //pesquisa no conteúdo
         preg_match_all('@{' . $this->params->get("customtagname", "pmgallery") . '}(.*){/' . $this->params->get("customtagname", "pmgallery") . '}@Us', $article->text, $matches);
@@ -127,7 +147,7 @@ class PlgContentPm_content_gallery extends JPlugin
         }
 
         foreach ($files as $k=>$file) {
-            $imagem = JUri::base() . $directory . '/' . $file;
+            $imagem = Uri::base() . $directory . '/' . $file;
 
             $heightb4 = $this->params->get("height", "16by9");
             $heightb5 = str_replace("by", "x", $heightb4);
