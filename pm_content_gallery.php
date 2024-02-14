@@ -159,17 +159,17 @@ $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
             $alt = $descricao ? $descricao . ' - ' . $k : $imageName;
             $html[$m] .= '<div class="item">';
             $html[$m] .= '<div  class="embed-responsive embed-responsive-' . $heightb4 . ' ratio ratio-' . $heightb5 . '">';
-            if ($this->params->get("modal", "true") == "true") {
+             if ($this->params->get("modal", "1") == "1") {
                 $html[$m] .= '<a href="#" data-toggle="modal" data-target="#galleryModal-' . $article->id . '-' . $m . '" rel="gallery-' . $article->id . '-' . $m . '" gallery="' . $article->id . '-' . $m . '">';
             }
             $html[$m] .= '<img class="embed-responsive-item w-100 h-auto" src="' . $imagem . '" alt="' . $alt . '">';
-            if ($this->params->get("modal", "true") == "true") {
+              if ($this->params->get("modal", "1") == "1") {
                 $html[$m] .= '</a>';
             }
             
             $html[$m] .= '</div>';
             $html[$m] .= '</div>';
-            if ($this->params->get("modal", "true") == "true") {
+            if ($this->params->get("modal", "1") == "1") {
                 $html[$m] .= '<div class="modal fade" id="galleryModal-' . $article->id . '-' . $m . '" tabindex="-1" aria-labelledby="galleryModalLabel-' . $article->id . '-' . $m . '" aria-hidden="true">';
                 $html[$m] .= '<div class="modal-dialog modal-lg" role="document">';
                 $html[$m] .= '<div class="modal-content">';
