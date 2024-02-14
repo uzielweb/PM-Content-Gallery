@@ -185,7 +185,7 @@ $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 
         }
         $html[$m] .= '</div>';
-        $html[$m] .= '<div class="descrição">' . $descricao . '</div>';
+        $html[$m] .= '<div class="description">' . $descricao . '</div>';
         $html[$m] .= '</section>';
         $html[$m] .= '<script>
 		jQuery(document).ready(function($){
