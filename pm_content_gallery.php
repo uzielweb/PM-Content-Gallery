@@ -146,7 +146,7 @@ $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
             echo "The directory doesn't exist: $directory";
         }
 
-        foreach ($files as $k=>$file) {
+        foreach ($files as $k => $file) {
             $imagem = Uri::base() . $directory . '/' . $file;
 
             $heightb4 = $this->params->get("height", "16by9");
@@ -159,9 +159,29 @@ $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
             $alt = $descricao ? $descricao . ' - ' . $k : $imageName;
             $html[$m] .= '<div class="item">';
             $html[$m] .= '<div  class="embed-responsive embed-responsive-' . $heightb4 . ' ratio ratio-' . $heightb5 . '">';
+            if ($this->params->get("modal", "true") == "true") {
+                $html[$m] .= '<a href="#" data-toggle="modal" data-target="#galleryModal-' . $article->id . '-' . $m . '" rel="gallery-' . $article->id . '-' . $m . '" gallery="' . $article->id . '-' . $m . '">';
+            }
             $html[$m] .= '<img class="embed-responsive-item w-100 h-auto" src="' . $imagem . '" alt="' . $alt . '">';
+            if ($this->params->get("modal", "true") == "true") {
+                $html[$m] .= '</a>';
+            }
+            
             $html[$m] .= '</div>';
             $html[$m] .= '</div>';
+            if ($this->params->get("modal", "true") == "true") {
+                $html[$m] .= '<div class="modal fade" id="galleryModal-' . $article->id . '-' . $m . '" tabindex="-1" aria-labelledby="galleryModalLabel-' . $article->id . '-' . $m . '" aria-hidden="true">';
+                $html[$m] .= '<div class="modal-dialog" role="document">';
+                $html[$m] .= '<div class="modal-content">';
+                $html[$m] .= '<div class="modal-body">';
+                $html[$m] .= '<img class="w-100" src="' . $imagem . '" alt="' . $alt . '">';
+                $html[$m] .= '</div>';
+                $html[$m] .= '</div>';
+                $html[$m] .= '</div>';
+                $html[$m] .= '</div>';
+                
+    
+            }
 
         }
         $html[$m] .= '</div>';
