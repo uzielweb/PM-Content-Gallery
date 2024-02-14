@@ -171,7 +171,7 @@ $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
             $html[$m] .= '</div>';
             if ($this->params->get("modal", "true") == "true") {
                 $html[$m] .= '<div class="modal fade" id="galleryModal-' . $article->id . '-' . $m . '" tabindex="-1" aria-labelledby="galleryModalLabel-' . $article->id . '-' . $m . '" aria-hidden="true">';
-                $html[$m] .= '<div class="modal-dialog" role="document">';
+                $html[$m] .= '<div class="modal-dialog modal-lg" role="document">';
                 $html[$m] .= '<div class="modal-content">';
                 $html[$m] .= '<div class="modal-body">';
                 $html[$m] .= '<img class="w-100" src="' . $imagem . '" alt="' . $alt . '">';
