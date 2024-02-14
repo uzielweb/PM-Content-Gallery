@@ -103,7 +103,7 @@ $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
             $doc->addStyleSheet(Uri::root() . 'plugins/content/pm_content_gallery/assets/css/owl.carousel.min.css');
             $doc->addStyleSheet(Uri::root() . 'plugins/content/pm_content_gallery/assets/css/temabasico.css');
             JHtml::_('jquery.framework', true, true);
-            $doc->addScript(Uri::root() . 'plugins/content/pm_content_gallery/assets/js/owl.carousel.min.js');
+            $doc->addScript(Uri::root() . 'plugins/content/pm_content_gallery/assets/js/owl.carousel.min.js', ['version' => 'auto', 'relative' => true], ['defer' => true]);
         }
         
 
