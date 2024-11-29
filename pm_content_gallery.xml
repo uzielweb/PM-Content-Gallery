@@ -30,6 +30,17 @@
                     <option value="4by3">RETANGULAR</option>
                     <option value="1by1">SQUARE</option>
                 </field>
+                <field name="gallery_type" type="list" label="Gallery Type" description="Choose the gallery layout" default="grid">
+            <option value="grid">Grid</option>
+            <option value="carousel">Carousel</option>
+        </field>
+
+
+        <field name="image_ratio" type="list" label="Image Aspect Ratio" description="Choose the aspect ratio for images" default="16by9">
+            <option value="16by9">16:9</option>
+            <option value="4by3">4:3</option>
+            <option value="1by1">1:1</option>
+        </field>
                 <!-- modal -->
                 <field name="modal" label="LOAD_IN_MODAL" type="radio" default="1" class="btn-group">
                     <option value="1">JYES</option>
