@@ -16,6 +16,46 @@ use Joomla\CMS\Plugin\CMSPlugin;
 
 class PlgContentPm_content_gallery extends JPlugin
 {
+    private function generateThumbnail($filePath, $thumbPath, $width = 300)
+{
+    // Verifica se a miniatura já existe
+    if (file_exists($thumbPath)) {
+        return $thumbPath;
+    }
+
+    // Obtém informações da imagem
+    list($originalWidth, $originalHeight, $imageType) = getimagesize($filePath);
+
+    // Calcula a altura proporcional
+    $height = intval($originalHeight * ($width / $originalWidth));
+
+    // Cria uma nova imagem
+    $thumbnail = imagecreatetruecolor($width, $height);
+
+    // Cria a imagem original com base no tipo
+    switch ($imageType) {
+        case IMAGETYPE_JPEG:
+            $source = imagecreatefromjpeg($filePath);
+            break;
+        case IMAGETYPE_PNG:
+            $source = imagecreatefrompng($filePath);
+            break;
+        case IMAGETYPE_GIF:
+            $source = imagecreatefromgif($filePath);
+            break;
+        default:
+            return false; // Tipo de imagem não suportado
+    }
+
+    // Redimensiona e salva a miniatura
+    imagecopyresampled($thumbnail, $source, 0, 0, 0, 0, $width, $height, $originalWidth, $originalHeight);
+    imagejpeg($thumbnail, $thumbPath, 90); // Salva como JPEG de alta qualidade
+    imagedestroy($thumbnail);
+    imagedestroy($source);
+
+    return $thumbPath;
+}
+
     public function onContentPrepare($context, &$article, &$params, $limitstart)
 {
     // Registering necessary CSS and JS for Bootstrap and Owl Carousel
@@ -96,7 +136,16 @@ class PlgContentPm_content_gallery extends JPlugin
             if ($modalEnabled) {
                 $html[$m] .= '<a href="#" data-toggle="modal" data-target="#galleryModal-' . $article->id . '-' . $m . '-' . $k . '" rel="gallery-' . $article->id . '-' . $m . '" data-bs-toggle="modal" data-bs-target="#galleryModal-' . $article->id . '-' . $m . '-' . $k . '" rel="gallery-' . $article->id . '-' . $m . '" gallery="' . $article->id . '-' . $m . '">';
             }
-            $html[$m] .= '<img class="embed-responsive-item w-100 h-auto" src="' . $imagem . '" alt="' . $alt . '">';
+           $thumbPath = JPATH_ROOT . '/images/pmgallerythumbs/' . basename($file);
+            $thumbUrl = Uri::base() . 'images/pmgallerythumbs/' . basename($file);
+
+            // Gera a miniatura se necessário
+            $this->generateThumbnail($directory . '/' . $file, $thumbPath);
+
+            // Usa a URL da miniatura no lazy load
+            $html[$m] .= '<img class="img-fluid rounded shadow lazy" loading="lazy" data-src="' . $thumbUrl . '" alt="' . $alt . '" src="'.$thumbUrl.'">';
+
+
             if ($modalEnabled) {
                 $html[$m] .= '</a>';
             }
