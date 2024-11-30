@@ -155,9 +155,16 @@ public function cropImage($file, $size)
             preg_match_all('@{' . $this->params->get("customtagname", "pmgallery") . '}(.*){/' . $this->params->get("customtagname", "pmgallery") . '}@Us', $match, $newmatches);
             $newMatchesContent[$m] = $newmatches[1][0];
             $contentArray = explode("|", isset($newMatchesContent[$m]) ? $newMatchesContent[$m] : '');
-            $pasta = isset($contentArray[0]) ? $contentArray[0] : '';
-            $descricao = isset($contentArray[1]) ? $contentArray[1] : '';
-            $directory = $this->params->get('folder', 'images') . '/' . $pasta;       
+            $pasta = isset($contentArray[0]) ? $contentArray[0] : '';            
+            $directory = $this->params->get('folder', 'images') . '/' . $pasta;
+           
+            foreach ($contentArray as $param) {
+                list($key, $value) = explode("=", $param);
+                $this->params->set($key, $value); // Sobrescreve o valor padrão com o novo valor
+            }
+            $descricao = $this->params->get("description", "");
+
+
             if (is_dir($directory)) {
                 $files = preg_grep('~\.(jpeg|jpg|png|webp|gif|JPEG|JPG|PNG|WEBP|GIF)$~', scandir($directory));
             } else {
@@ -189,6 +196,7 @@ switch ($galleryType) {
 }
 
 // Monta o HTML principal
+$html[$m] .= '<div class="description"><h3 class="gallery-title">' . $descricao . '</h3></div>';
 $html[$m] .= '<div class="' . $carouselClass . '"' . $carouselAttributes . '>';
 
 // Adiciona a div carousel-inner apenas para bootstrap_carousel
@@ -239,10 +247,19 @@ $html[$m] .= '<div class="carousel-inner">';
                 if ($this->params->get("modal", "1") == "1") {
                     $html[$m] .= '<div class="modal-toggle" data-bs-toggle="modal" data-bs-target="#galleryModal-' . $article->id . '-' . $m . '-' . $k . '" rel="gallery-' . $article->id . '-' . $m . '" gallery="' . $article->id . '-' . $m . '">';
                 }
-                if ($this->params->get("gallery_type", "owl_carousel") == "grid") {
+                if ($this->params->get("gallery_type", "grid") == "grid") {
                     $html[$m] .= HTMLHelper::_('image', $thumbnail, $alt, ['class' => 'embed-responsive-item img-fluid']);
                 } else {
                     $html[$m] .= HTMLHelper::_('image', $imagem, $alt, ['class' => 'embed-responsive-item img-fluid']);
+                }
+                if ($this->params->get("show_name", "") == "show_image_name") {
+                    $html[$m] .= '<div class="carousel-caption d-none d-md-block">';
+                    $html[$m] .= '<p>' . $imageName . '</p>';
+                    $html[$m] .= '</div>';
+                } if ($this->params->get("show_name", "") == "show_album_name_sequence") {
+                    $html[$m] .= '<div class="carousel-caption d-none d-md-block">';
+                    $html[$m] .= '<p>' . $alt . '</p>';
+                    $html[$m] .= '</div>';
                 }
                   if ($this->params->get("modal", "1") == "1") {
                     $html[$m] .= '</div>';
@@ -263,7 +280,7 @@ $html[$m] .= '<div class="carousel-inner">';
                 $html[$m] .= '</button>';
             }
             $html[$m] .= '</div>';
-            $html[$m] .= '<div class="description">' . $descricao . '</div>';
+       
             $html[$m] .= '</section>';
             if ($this->params->get("gallery_type", "owl_carousel") == "owl_carousel") {  
             $html[$m] .= '<script>
@@ -300,8 +317,16 @@ $html[$m] .= '<div class="carousel-inner">';
                 });
             </script>';
             }
+            //    
+            // Remover a string do parâmetro para não aparecer no conteúdo renderizado
+                $contentWithoutParams = preg_replace('/\b' . preg_quote($param, '/') . '\b/', '', $newMatchesContent[$m]);
+              
             // Append modals HTML to the end of article text
             $article->text = preg_replace('@{' . $this->params->get("customtagname", "pmgallery") . '}(.*){/' . $this->params->get("customtagname", "pmgallery") . '}@Us', $html[$m], $article->text, 1);
+            foreach ($contentArray as $param) {
+                list($key, $value) = explode("=", $param);
+                $article->text = str_replace($key . '=' . $value, '', $article->text);
+            }
         }
      
         if ($this->params->get("modal", "1") == "1") {
@@ -321,7 +346,7 @@ $html[$m] .= '<div class="carousel-inner">';
             
             $modalsHtml .= '<div class="modal-content">';
             $modalsHtml .= '<div class="modal-header">';
-            $modalsHtml .= '<h5 class="modal-title" id="galleryModalLabel-' . $article->id . '-' . $m . '-' . $k . '">' . $alt . '</h5>';
+            $modalsHtml .= '<h5 class="modal-title" id="galleryModalLabel-' . $article->id . '-' . $m . '-' . $k . '">' . ($this->params->get("show_name", "") == "show_album_name_sequence" ? $alt : $imageName) . '</h5>';
             $modalsHtml .= '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>';
             $modalsHtml .= '</div>';            
             $modalsHtml .= '<div class="modal-body position-relative">';

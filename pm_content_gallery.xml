@@ -7,7 +7,7 @@
     <license>GNU/Public</license>
     <authorEmail>contato@pontomega.com.br</authorEmail>
     <authorUrl>pontomega.com.br</authorUrl>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <description>PLG_CONTENT_PM_CONTENT_GALLERY_XML_DESCRIPTION</description>
     <updateservers>
 		<server type="extension" priority="1" name="plg_content_pm_content_gallery">https://raw.githubusercontent.com/uzielweb/zero/pm_content_gallery/pm_content_gallery_updates.xml</server>
@@ -34,7 +34,13 @@
                 <field name="thumbnail_width" label="THUMBNAIL_WIDTH" type="text" default="300" description="THUMBNAIL_WIDTH_DESC" />
                 <field name="thumbnail_height" label="THUMBNAIL_HEIGHT" type="text" default="300" description="THUMBNAIL_HEIGHT_DESC" />
 
-     <field name="images_per_row" type="text" default="1" label="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_IMAGES_PER_ROW_LABEL" description="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_IMAGES_PER_ROW_DESC" />
+                <field name="images_per_row" type="text" default="1" label="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_IMAGES_PER_ROW_LABEL" description="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_IMAGES_PER_ROW_DESC" />
+       
+                <field name="show_name" label="SHOW_NAME" type="radio" class="btn-group" default="show_image_name">
+                    <option value="0">JNONE</option>
+                    <option value="show_image_name">SHOW_IMAGE_NAME</option>
+                    <option value="show_album_name_sequence">SHOW_ALBUM_NAME_SEQUENCE</option>
+                </field>
          
                 <field name="height" label="HEIGHT" type="list" default="16by9" description="HEIGHT_DESC">
                     <option value="21by9">ULTRAWIDESCREEN</option>
