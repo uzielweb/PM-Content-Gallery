@@ -7,7 +7,7 @@
     <license>GNU/Public</license>
     <authorEmail>contato@pontomega.com.br</authorEmail>
     <authorUrl>pontomega.com.br</authorUrl>
-    <version>1.2</version>
+    <version>1.2.1</version>
     <description>PLG_CONTENT_PM_CONTENT_GALLERY_XML_DESCRIPTION</description>
     <updateservers>
 		<server type="extension" priority="1" name="plg_content_pm_content_gallery">https://raw.githubusercontent.com/uzielweb/zero/pm_content_gallery/pm_content_gallery_updates.xml</server>
