@@ -44,17 +44,15 @@
 .pmcontentgallery .ratio-21x9.portrait img,
 .pmcontentgallery .ratio-4x3.portrait img,
 .pmcontentgallery .ratio-1x1.portrait img{
-    width: auto !important;
-    height: 100% !important;
     display: block !important;
     margin: 0 auto !important;
     position: absolute;
-    left:50%;
-    transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
+    top:50%;
+    transform: translatey(-50%);
+    -webkit-transform: translatey(-50%);
+    -moz-transform: translatey(-50%);
+    -ms-transform: translatey(-50%);
+    -o-transform: translatey(-50%);
 }
 .pm-modal-gallery {
     z-index: 999999;
