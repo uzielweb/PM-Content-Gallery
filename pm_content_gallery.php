@@ -217,7 +217,7 @@ $html[$m] .= '<div class="carousel-inner">';
                 $imageName = pathinfo($file, PATHINFO_FILENAME);
                 $imageName = str_replace(["-", "_"], " ", $imageName);
                 $imageName = ucwords($imageName);
-                $alt = $descricao ? $descricao . ' - ' . $k : $imageName;
+                $alt = $descricao ? $descricao . ' - ' . ($k - 1) : $imageName;
                 // check image is portrait or landscape
                 $image = getimagesize($directory . '/' . $file);
                 $imageWidth = $image[0];
@@ -283,16 +283,24 @@ $html[$m] .= '<div class="carousel-inner">';
        
             $html[$m] .= '</section>';
             if ($this->params->get("gallery_type", "owl_carousel") == "owl_carousel") {  
+    
+                $enablenav = $this->params->get("nav", "true") ? 'true' : 'false';
+                $loop = $this->params->get("loop", "true") ? 'true' : 'false';
+                $autoplay = $this->params->get("autoplay", "true") ? 'true' : 'false';
+                $dots = $this->params->get("dots", "true") ? 'true' : 'false';
+                $lazyLoad = $this->params->get("lazyload", "true") ? 'true' : 'false';
             $html[$m] .= '<script>
                 jQuery(document).ready(function($){
                     $(".carrossel-'.$article->id.$m.'").owlCarousel({
-                        loop:' . $this->params->get("loop", "true") . ',
-                        autoplay: ' . $this->params->get("autoplay", "true") . ',
+                        loop:' . $loop . ',
+                        autoplay: ' .  $autoplay  . ',
                         margin:' . $this->params->get("margin", "10") . ',
-                        nav:' . $this->params->get("nav", "true") . ',
-                        dots:' . $this->params->get("dots", "true") . ',
+                        nav:' . $enablenav . ',
+                        dots:' . $dots . ',
                         dotsEach: ' . $this->params->get("dotseach", "1") . ',
-                        lazyLoad: ' . $this->params->get("lazyload", "true") . ',
+                        lazyLoad: ' . $lazyLoad . ',
+                        // nav text
+                        navText: ["<i class=\'fas fa-chevron-left\'></i>", "<i class=\'fas fa-chevron-right\'></i>"],
                         responsive:{
                             0:{
                                 items: 1
@@ -308,6 +316,7 @@ $html[$m] .= '<div class="carousel-inner">';
                 });
             </script>';
             }
+       
             elseif ($this->params->get("gallery_type", "owl_carousel") == "bootstrap_carousel") {
                 $html[$m] .= '<script>
                 jQuery(document).ready(function($){
@@ -317,6 +326,7 @@ $html[$m] .= '<div class="carousel-inner">';
                 });
             </script>';
             }
+       
             //    
             // Remover a string do parâmetro para não aparecer no conteúdo renderizado
                 $contentWithoutParams = preg_replace('/\b' . preg_quote($param, '/') . '\b/', '', $newMatchesContent[$m]);
@@ -346,7 +356,10 @@ $html[$m] .= '<div class="carousel-inner">';
             
             $modalsHtml .= '<div class="modal-content">';
             $modalsHtml .= '<div class="modal-header">';
+            // hidde title if show_name is not show_image_name
+            if ($this->params->get("show_name", "")) {
             $modalsHtml .= '<h5 class="modal-title" id="galleryModalLabel-' . $article->id . '-' . $m . '-' . $k . '">' . ($this->params->get("show_name", "") == "show_album_name_sequence" ? $alt : $imageName) . '</h5>';
+        }
             $modalsHtml .= '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>';
             $modalsHtml .= '</div>';            
             $modalsHtml .= '<div class="modal-body position-relative">';

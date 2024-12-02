@@ -7,7 +7,7 @@
     <license>GNU/Public</license>
     <authorEmail>contato@pontomega.com.br</authorEmail>
     <authorUrl>pontomega.com.br</authorUrl>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
     <description>PLG_CONTENT_PM_CONTENT_GALLERY_XML_DESCRIPTION</description>
     <updateservers>
 		<server type="extension" priority="1" name="plg_content_pm_content_gallery">https://raw.githubusercontent.com/uzielweb/zero/pm_content_gallery/pm_content_gallery_updates.xml</server>
@@ -36,7 +36,7 @@
 
                 <field name="images_per_row" type="text" default="1" label="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_IMAGES_PER_ROW_LABEL" description="PLG_CONTENT_PM_CONTENT_GALLERY_FIELD_IMAGES_PER_ROW_DESC" />
        
-                <field name="show_name" label="SHOW_NAME" type="radio" class="btn-group" default="show_image_name">
+                <field name="show_name" label="SHOW_NAME" type="radio" class="btn-group" default="0">
                     <option value="0">JNONE</option>
                     <option value="show_image_name">SHOW_IMAGE_NAME</option>
                     <option value="show_album_name_sequence">SHOW_ALBUM_NAME_SEQUENCE</option>
@@ -49,38 +49,38 @@
                     <option value="1by1">SQUARE</option>
                 </field>
                 <!-- modal -->
-                <field name="modal" label="LOAD_IN_MODAL" type="radio" class="btn-group" layout="joomla.form.field.radio.switcher" default="1" filter="integer">                    
+                <field name="modal" label="LOAD_IN_MODAL" type="radio" class="btn-group" layout="joomla.form.field.radio.switcher" default="1" filter="integer">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
 
-                <field name="loop" label="LOOP" type="radio"  class="btn-group" layout="joomla.form.field.radio.switcher" default="1" filter="integer">
+                <field name="loop" label="LOOP" type="radio"  class="btn-group" layout="joomla.form.field.radio.switcher" default="1" filter="integer" showon="gallery_type:owl_carousel[OR]gallery_type:bootstrap_carousel">
                     
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
-                <field name="autoplay" label="AUTOPLAY" type="radio" class="btn-group" layout="joomla.form.field.radio.switcher" default="1" filter="integer">
+                <field name="autoplay" label="AUTOPLAY" type="radio" class="btn-group" layout="joomla.form.field.radio.switcher" default="1" filter="integer" showon="gallery_type:owl_carousel[OR]gallery_type:bootstrap_carousel">
                    
                     <option value="0">JNO</option>
                      <option value="1">JYES</option>
                 </field>
-                <field name="nav" label="NAV" type="radio" class="btn-group" layout="joomla.form.field.radio.switcher" default="1" filter="integer">
+                <field name="nav" label="NAV" type="radio" class="btn-group" layout="joomla.form.field.radio.switcher" default="1" filter="integer" showon="gallery_type:owl_carousel[OR]gallery_type:bootstrap_carousel">
                 
                     <option value="0">JNO</option>
                         <option value="1">JYES</option>
                 </field>
-                <field name="dots" label="DOTS" type="radio" class="btn-group" layout="joomla.form.field.radio.switcher" default="1" filter="integer">
+                <field name="dots" label="DOTS" type="radio" class="btn-group" layout="joomla.form.field.radio.switcher" default="1" filter="integer" showon="gallery_type:owl_carousel[OR]gallery_type:bootstrap_carousel">
                     
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
-                <field name="lazyload" label="LAZYLOAD" type="radio" class="btn-group" layout="joomla.form.field.radio.switcher" default="1" filter="integer">
+                <field name="lazyload" label="LAZYLOAD" type="radio" class="btn-group" layout="joomla.form.field.radio.switcher" default="1" filter="integer" showon="gallery_type:owl_carousel[OR]gallery_type:bootstrap_carousel">
                    
                     <option value="0">JNO</option>
                      <option value="1">JYES</option>
                 </field>
-                <field name="dotseach" label="DOTSEACH" type="text" default="1" />
-                <field name="dotseach" label="DOTSEACH" type="text" default="1" />
+                <field name="dotseach" label="DOTSEACH" type="text" default="1" showon="gallery_type:owl_carousel[OR]gallery_type:bootstrap_carousel" />
+                <field name="dotseach" label="DOTSEACH" type="text" default="1" showon="gallery_type:owl_carousel[OR]gallery_type:bootstrap_carousel" />
             </fieldset>
             <fieldset name="basic">
                 <field name="customtagname" label="Tag" type="text" default="pmgallery" description="Tag" />
